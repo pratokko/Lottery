@@ -1,4 +1,4 @@
-const { deployments, getNamedAccounts, network } = require("hardhat");
+const { network } = require("hardhat");
 
 const { developmentChains} = require("../helper-hardhat-config")
 

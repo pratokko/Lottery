@@ -32,16 +32,6 @@ networks: {
 
 },
 
-// etherscan: {
-//   // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
-//   apiKey: {
-//       goerli: ETHERSCAN_API_KEY,
-//       // polygon: POLYGONSCAN_API_KEY,
-//     },
-    
-//     url: "https://api-goerli.etherscan.io/api",
-// },
-
   solidity: "0.8.7",
   namedAccounts: {
     deployer: {

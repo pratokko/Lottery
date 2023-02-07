@@ -16,7 +16,7 @@ import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol";
 
-error Raffle__NotEnoughEth();
+error Raffle__NotEnoughETHEntered();
 
 error Raffle__TransferFailed();
 error Raffle__NotOpen();
@@ -62,8 +62,8 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
 
     /*events*/
 
-    event RaffleEnter(address indexedplayer);
-    event RequestedRaffleWinner(uint256 indexed rrequestId);
+    event RaffleEnter(address indexed player);
+    event RequestedRaffleWinner(uint256 indexed requestId);
     event winnerPicked(address indexed winner);
 
     constructor(
@@ -89,7 +89,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     function enterRaffle() public payable {
         // require ( msg.value > i_entranceFee, " Not enough eth")
         if (msg.value < i_entranceFee) {
-            revert Raffle__NotEnoughEth();
+            revert Raffle__NotEnoughETHEntered();
         }
 
         if (s_raffleState != RaffleState.OPEN) {
@@ -192,14 +192,19 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         return NUM_WORDS;
     }
 
-    function getNumberOfPlayers() public view returns (uint256){
+    function getNumberOfPlayers() public view returns (uint256) {
         return s_players.length;
     }
-    function getLatestTimestamp() public view returns(uint256) {
+
+    function getLatestTimestamp() public view returns (uint256) {
         return s_lastTimeStamp;
     }
 
-    function requestConfirmations() public pure returns(uint256) {
+    function requestConfirmations() public pure returns (uint256) {
         return REQUEST_CONFIRMATIONS;
+    }
+
+    function getInterval() public view returns (uint256) {
+        return i_interval;
     }
 }

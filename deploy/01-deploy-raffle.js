@@ -1,4 +1,4 @@
-const { getNamedAccounts, deployments, network, ethers } = require("hardhat");
+const {network, ethers } = require("hardhat");
 const {
   developmentChains,
   networkConfig,
@@ -48,7 +48,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     interval,
   ];
   const raffle = await deploy("Raffle", {
-    form: deployer,
+    from: deployer,
     args: args,
     log: true,
     waitConfirmations: network.config.blockConfirmations || 1,
@@ -59,7 +59,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     process.env.ETHERSCAN_API_KEY
   ) {
     log("Verifying...");
-    await verify(raffle.address, arguments);
+    await verify(raffle.address, args);
   }
   log("-----------------------------------------------------");
 };
